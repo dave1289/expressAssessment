@@ -10,9 +10,11 @@ app.post('/', function(req, res, next) {
     let out = results.map(r => ({ name: r.data.name, bio: r.data.bio }));
 
     return res.send(JSON.stringify(out));
-  } catch {
+  } catch(err) {
     next(err);
   }
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+   console.log('server starting on 3000')
+});

@@ -3,26 +3,25 @@
 Answer the following questions below:
 
 - What are some ways of managing asynchronous code in JavaScript?
-We can use manual callbacks with setTimeout, .then & .catch, or using async and await
+We can use .then .catch, callbacks with setTimeout, and of course (and most usefully) axios await and async functionality.
 
 - What is a Promise?
-A promise is what javascript creates when we begin to execute asynchronous code, represents the eventual completiong or faulure.
+A promise is an as of yet unresolved request.  Javascript knows the information is coming but it has not pulled from the source API yet.  The promise will resolve to a request body which contains our data.
 
 - What are the differences between an async function and a regular function?
-Async functions are created to be asynchronous and use await to help route us through async code.
+Asnyc functions allow us to use the away keyword so we can wait for a promise to resolve before moving on, thus giving us access to the data.
 
 - What is the difference between Node.js and Express.js?
-Node.js is a backend javascript language for outside of the browser
-Express.js is a framework for creating routes like flask is to python
+Node.js is a backend server javascript environment outside of the browser, express.js is a framework for node.js to allow us to create webapps.
 
 - What is the error-first callback pattern?
-Error handling function which takes error and data as arguments, if error is passed it displays error
+Process errors before proceeding into asynchronous code so that if we encounter an error we don't have to wait for frivolous promises to fail.
 
 - What is middleware?
-Middleware is the name for functions that operate in and around our routes and are kept separately but used throughout.
+Middleware is the functionality we keep in a separate file that we can use throughout our webapp.  Some common uses are error handling, route functionality, server functionality, etc
 
 - What does the `next` function do?
-The next function goes to the next code that would run in your file.  Routes are not included in this so usually next will bring you to your next App.use statement.
+the 'next' function executes the next code in line within the app.  with our express webapps this will pass over the routes as there is no input and proceed to our next app.use function, these will commonly be for error handling and something you need to run for each request.
 
 - What are some issues with the following code? (consider all aspects: performance, structure, naming, etc)
 
@@ -36,4 +35,4 @@ async function getUsers() {
 }
 ```
 
-We should create a function to pull users and have that function be awaited, having 3 await statements is a waste of time.
+We can have 1 await that waits for all promises to resolve instead of 3 individual awaited requests that all need to resolve before we can progress.  We can save the base URL in a variable to keep our code neater and save time.  Use a loop to pull from base url and an array of names.
