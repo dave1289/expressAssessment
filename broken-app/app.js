@@ -4,20 +4,20 @@ var app = express();
 
 app.use(express.json());
 
+const BASE_URL = 'https://api.github.com/users/'
+let results = []
+
 app.post('/', async function(req, res, next) {
   try {
-    let results = results.map(async d => {
-      await axios.get(`https://api.github.com/users/${d}`)
-    });
-    Promise.all(results)
-    .then(() => {
-      let out = sortedResults.map( r => ({
-          name: r.data.name, bio: r.data.bio }));
-      return res.send(JSON.stringify(out));
-    })
-
-  } catch(err) {
-    next(err);
+   let devs = [... req.body.developers]   
+   for (let dev in devs) {
+      let entry = await axios.get(`${BASE_URL}${devs[dev]}`)
+      results.push({bio: entry.data.bio,
+      name: entry.data.name})
+   }
+   return res.json(results)
+   } catch(err) {
+   next(err);
   }
 });
 
